@@ -29,7 +29,7 @@ require("sendgrid/sendgrid-php.php");
   $encryption = openssl_encrypt($code, $ciphering, $encryption_key, $options, $encryption_iv);
 
   $verify = "https://xkcdphpcomic.000webhostapp.com/backend/verify.php?user=$user&code=$encryption" ; 
-
+    try {
 $email = new \SendGrid\Mail\Mail(); 
 $email->setFrom("19BCS4067@cuchd.in", "Example User");
 $email->setSubject("Email Verification For Random XKCD comic");
@@ -38,17 +38,18 @@ $email->addContent("text/plain", "Your XKCD comic Email Verification Is Here");
 $email->addContent(
     "text/html", "To verify your email click here -> <a href='$verify'>VERIFY</a>"
 );
-// $sendgrid = new \SendGrid(getenv("SENDGRID_KEY"));
 
-//    // $response = $sendgrid->send($email);
-//    try {
-//     $response = $sendgrid->send($email);
-//     print $response->statusCode() . "\n";
-//     print_r($response->headers());
-//     print $response->body() . "\n";
-// } catch (Exception $e) {
-//     echo 'Caught exception: '. $e->getMessage() ."\n";
-// }
+
+$sendgrid = new \SendGrid(getenv("SENDGRID_KEY"));
+
+   // $response = $sendgrid->send($email);
+    $response = $sendgrid->send($email);
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: '. $e->getMessage() ."\n";
+}
 
   }
 ?>
