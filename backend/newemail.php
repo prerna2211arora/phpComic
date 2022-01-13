@@ -30,15 +30,15 @@ require("sendgrid/sendgrid-php.php");
 
   $verify = "https://xkcdphpcomic.000webhostapp.com/backend/verify.php?user=$user&code=$encryption" ; 
 
-// $email = new \SendGrid\Mail\Mail(); 
-// $email->setFrom("19BCS4067@cuchd.in", "Example User");
-// $email->setSubject("Email Verification For Random XKCD comic");
-// $email->addTo($user, "New User");
-// $email->addContent("text/plain", "Your XKCD comic Email Verification Is Here");
-// $email->addContent(
-//     "text/html", "To verify your email click here -> <a href='$verify'>VERIFY</a>"
-// );
-// $sendgrid = new \SendGrid(getenv("SENDGRID_KEY"));
+$email = new \SendGrid\Mail\Mail(); 
+$email->setFrom("19BCS4067@cuchd.in", "Example User");
+$email->setSubject("Email Verification For Random XKCD comic");
+$email->addTo($user, "New User");
+$email->addContent("text/plain", "Your XKCD comic Email Verification Is Here");
+$email->addContent(
+    "text/html", "To verify your email click here -> <a href='$verify'>VERIFY</a>"
+);
+$sendgrid = new \SendGrid(getenv("SENDGRID_KEY"));
 
 //    // $response = $sendgrid->send($email);
 //    try {
