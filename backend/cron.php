@@ -18,7 +18,7 @@ require("sendgrid/sendgrid-php.php");
    echo "Sending Comic to -> $user";
 
    $email = new \SendGrid\Mail\Mail(); 
-$email->setFrom("cu.19bcs4086@gmail.com", "RTCAMP");
+$email->setFrom("19BCS4067@cuchd.in", "RTCAMP");
 $email->setSubject("Random XKCD comic");
 $email->addTo($user, "XKCD Comic Lover");
 $email->addContent("text/plain", "Your XKCD comic is here");
