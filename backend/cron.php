@@ -3,6 +3,8 @@ include_once "conn.php";
 include_once "comics.php";
 require("sendgrid/sendgrid-php.php");  
    $comic = getComic();
+   $key = getenv("SENDGRID_KEY");
+  echo "$comic <br> $key";
 
   $user = sprintf("SELECT `userEmail` FROM `mail_data` WHERE `userStatus`= 1 AND `userVerified`= 1");
 
