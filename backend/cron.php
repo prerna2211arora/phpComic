@@ -25,7 +25,7 @@ $email->addContent("text/plain", "Your XKCD comic is here");
 $email->addContent(
     "text/html", "$comic<br>To unsubscribe from XKCD Comic click here -> <a href='https://xkcdphpcomic.000webhostapp.com/backend/unsubscribe.php?user=$user'>Unsubscribe</a>"
 );
-$sendgrid = new \SendGrid("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");
+$sendgrid = new \SendGrid(getenv("SENDGRID_KEY"));
 echo "sending";
     $response = $sendgrid->send($email);
     echo "$response";

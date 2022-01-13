@@ -38,7 +38,7 @@ $email->addContent("text/plain", "Your XKCD comic Email Verification Is Here");
 $email->addContent(
     "text/html", "To verify your email click here -> <a href='$verify'>VERIFY</a>"
 );
-$sendgrid = new \SendGrid("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");
+$sendgrid = new \SendGrid(getenv("SENDGRID_KEY"));
 
     $response = $sendgrid->send($email);
 
