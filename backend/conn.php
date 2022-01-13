@@ -2,7 +2,7 @@
   $hostname = "localhost";
   $username = "root";
   $password = "root";
-  $dbname = "rtcamp_d";
+  $dbname = "rtcamp_db";
 
   $conn = mysqli_connect($hostname, $username, $password, $dbname);
   if(!$conn){

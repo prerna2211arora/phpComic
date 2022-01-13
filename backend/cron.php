@@ -1,7 +1,8 @@
 <?php
 include_once "conn.php";
 include_once "comics.php";
-$comic = getComic();
+require("sendgrid/sendgrid-php.php");  
+   $comic = getComic();
 
   $user = sprintf("SELECT `userEmail` FROM `mail_data` WHERE `userStatus`= 1 AND `userVerified`= 1");
 
@@ -10,36 +11,28 @@ $comic = getComic();
   if ($result->num_rows > 0) 
   {
 
-  while($row = $result->fetch_assoc()) {
+  while($row = $result->fetch_assoc()) 
+  {
 
-   $email=$row['userEmail'];
+   $user=$row['userEmail'];
+   echo "Sending Comic to -> $user";
 
-   $curl = curl_init();
-   
-   curl_setopt_array($curl, [
-     CURLOPT_URL => "https://easymail.p.rapidapi.com/send",
-     CURLOPT_RETURNTRANSFER => true,
-     CURLOPT_FOLLOWLOCATION => true,
-     CURLOPT_ENCODING => "",
-     CURLOPT_MAXREDIRS => 10,
-     CURLOPT_TIMEOUT => 30,
-     CURLOPT_SSL_VERIFYPEER => false,
-     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-     CURLOPT_CUSTOMREQUEST => "POST",
-     CURLOPT_POSTFIELDS => "{\r\n    \"from\": {\r\n        \"name\": \"XKCD Comic\"\r\n    },\r\n    \"to\": {\r\n  
-            \"address\": \"$email\"\r\n    },\r\n  
-              \"subject\": \" Random XKCD Comic \",\r\n   
-               \"message\": \" $comic<br>To unsubscribe from XKCD Comic click here -> <a href='http://localhost/RtCamp/backend/unsubscribe.php?user=$email'>Unsubscribe</a>\"\r\n}",
-     CURLOPT_HTTPHEADER => [
-       "content-type: application/json",
-       "x-rapidapi-host: easymail.p.rapidapi.com",
-       "x-rapidapi-key: 0ea0320398mshac5b4c5bd268665p17bb40jsn0e9fb8e2708c"
-     ],
-   ]);
-   
-   $response = curl_exec($curl);
-   $err = curl_error($curl);
-   curl_close($curl);
+   $email = new \SendGrid\Mail\Mail(); 
+$email->setFrom("cu.19bcs4086@gmail.com", "RTCAMP");
+$email->setSubject("Random XKCD comic");
+$email->addTo($user, "XKCD Comic Lover");
+$email->addContent("text/plain", "Your XKCD comic is here");
+$email->addContent(
+    "text/html", "$comic<br>To unsubscribe from XKCD Comic click here -> <a href='https://xkcdphpcomic.000webhostapp.com/backend/unsubscribe.php?user=$user'>Unsubscribe</a>"
+);
+$sendgrid = new \SendGrid("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");
+echo "sending";
+    $response = $sendgrid->send($email);
+    echo "$response";
+
     }
-}
+
+  }
+
+
 ?>

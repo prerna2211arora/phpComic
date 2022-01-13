@@ -8,6 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1><?php echo $email ?> Has been successfully added</h1>
+    <h1><?php echo $user ?> Has been successfully added</h1>
 </body>
 </html>
