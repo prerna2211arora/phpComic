@@ -14,42 +14,42 @@ require("sendgrid/sendgrid-php.php");
  if ($conn->query($data) === FALSE) {
   header("location: /error.php?error=User With Email <i>$user</i> is Already Registered");
  }
- else
- {
+//  else
+//  {
   
-  $ciphering = "AES-128-CTR";
+//   $ciphering = "AES-128-CTR";
   
-  $iv_length = openssl_cipher_iv_length($ciphering);
-  $options = 0;
+//   $iv_length = openssl_cipher_iv_length($ciphering);
+//   $options = 0;
   
-  $encryption_iv = '1234567891011121';
+//   $encryption_iv = '1234567891011121';
   
-  $encryption_key = "RtCampPHPAssingment";
+//   $encryption_key = "RtCampPHPAssingment";
   
-  $encryption = openssl_encrypt($code, $ciphering, $encryption_key, $options, $encryption_iv);
+//   $encryption = openssl_encrypt($code, $ciphering, $encryption_key, $options, $encryption_iv);
 
-  $verify = "https://xkcdphpcomic.000webhostapp.com/backend/verify.php?user=$user&code=$encryption" ; 
+//   $verify = "https://xkcdphpcomic.000webhostapp.com/backend/verify.php?user=$user&code=$encryption" ; 
 
-$email = new \SendGrid\Mail\Mail(); 
-$email->setFrom("19BCS4067@cuchd.in", "Example User");
-$email->setSubject("Email Verification For Random XKCD comic");
-$email->addTo($user, "New User");
-$email->addContent("text/plain", "Your XKCD comic Email Verification Is Here");
-$email->addContent(
-    "text/html", "To verify your email click here -> <a href='$verify'>VERIFY</a>"
-);
-$sendgrid = new \SendGrid(getenv("SENDGRID_KEY"));
+// $email = new \SendGrid\Mail\Mail(); 
+// $email->setFrom("19BCS4067@cuchd.in", "Example User");
+// $email->setSubject("Email Verification For Random XKCD comic");
+// $email->addTo($user, "New User");
+// $email->addContent("text/plain", "Your XKCD comic Email Verification Is Here");
+// $email->addContent(
+//     "text/html", "To verify your email click here -> <a href='$verify'>VERIFY</a>"
+// );
+// $sendgrid = new \SendGrid(getenv("SENDGRID_KEY"));
 
-   // $response = $sendgrid->send($email);
-   try {
-    $response = $sendgrid->send($email);
-    print $response->statusCode() . "\n";
-    print_r($response->headers());
-    print $response->body() . "\n";
-} catch (Exception $e) {
-    echo 'Caught exception: '. $e->getMessage() ."\n";
-}
+//    // $response = $sendgrid->send($email);
+//    try {
+//     $response = $sendgrid->send($email);
+//     print $response->statusCode() . "\n";
+//     print_r($response->headers());
+//     print $response->body() . "\n";
+// } catch (Exception $e) {
+//     echo 'Caught exception: '. $e->getMessage() ."\n";
+// }
 
 
- }
+//  }
 ?>
