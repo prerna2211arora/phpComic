@@ -40,7 +40,15 @@ $email->addContent(
 );
 $sendgrid = new \SendGrid(getenv("SENDGRID_KEY"));
 
+   // $response = $sendgrid->send($email);
+   try {
     $response = $sendgrid->send($email);
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: '. $e->getMessage() ."\n";
+}
 
 
  }
